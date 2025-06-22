@@ -1,116 +1,108 @@
-from flask import Flask, render_template, request, jsonify, redirect, url_for, session
-import os
-import random
-
-app = Flask(__name__)
-app.secret_key = "autobet_ai_count_complete_2025"
-
-@app.route("/")
-def index():
-    return render_template("login.html")
-
-@app.route("/dashboard")
-def dashboard():
-    if "user_id" not in session:
-        return redirect(url_for("index"))
-    
-    stats = [156, 1250.50, 250.10, 0.78]
-    recent_trades = [
-        ("百家乐", 50, "win", 45, "2025-01-22 10:15:30"),
-        ("21点", 30, "loss", -30, "2025-01-22 10:12:15"),
-        ("Bettingdev机器人", 100, "win", 180, "2025-01-22 10:01:10")
-    ]
-    
-    return render_template("advanced_dashboard.html", stats=stats, recent_trades=recent_trades)
-
-@app.route("/antivirus")
-def antivirus():
-    if "user_id" not in session:
-        return redirect(url_for("index"))
-    return render_template("antivirus.html")
-
-@app.route("/anti_detection")
-def anti_detection():
-    if "user_id" not in session:
-        return redirect(url_for("index"))
-    return render_template("anti_detection.html")
-
-@app.route("/pdf_reader")
-def pdf_reader():
-    if "user_id" not in session:
-        return redirect(url_for("index"))
-    return render_template("pdf_reader.html")
-
-@app.route("/software_installation")
-def software_installation():
-    if "user_id" not in session:
-        return redirect(url_for("index"))
-    return render_template("software_installation.html")
-
-@app.route("/betting_bots")
-def betting_bots():
-    if "user_id" not in session:
-        return redirect(url_for("index"))
-    return render_template("betting_bots.html")
-
-@app.route("/trading")
-def trading():
-    if "user_id" not in session:
-        return redirect(url_for("index"))
-    return render_template("trading.html")
-
-@app.route("/analytics")
-def analytics():
-    if "user_id" not in session:
-        return redirect(url_for("index"))
-    return render_template("analytics.html")
-
-@app.route("/settings")
-def settings():
-    if "user_id" not in session:
-        return redirect(url_for("index"))
-    return render_template("settings.html")
-
-@app.route("/profile")
-def profile():
-    if "user_id" not in session:
-        return redirect(url_for("index"))
-    return render_template("profile.html")
-
-@app.route("/api/login", methods=["POST"])
-def api_login():
-    data = request.get_json()
-    username = data.get("username")
-    password = data.get("password")
-    
-    if username == "KATHERINE9508" and password == "asd123456":
-        session["user_id"] = 1
-        session["username"] = username
-        return jsonify({"success": True, "redirect": "/dashboard"})
-    else:
-        return jsonify({"success": False, "message": "用户名或密码错误"})
-
-@app.route("/api/system_stats")
-def api_system_stats():
-    return jsonify({
-        "success": True,
-        "data": {
-            "cpu_usage": random.uniform(30, 70),
-            "memory_usage": random.uniform(40, 80),
-            "active_users": 1,
-            "today_trades": random.randint(20, 50),
-            "total_profit": round(random.uniform(1000, 2000), 2),
-            "running_bots": 4,
-            "antivirus_status": "已激活",
-            "anti_detection_status": "已启用"
-        }
-    })
-
-@app.route("/logout")
-def logout():
-    session.clear()
-    return redirect(url_for("index"))
-
-if __name__ == "__main__":
-    port = int(os.environ.get("PORT", 5000))
-    app.run(host="0.0.0.0", port=port, debug=False)
+return '''
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Complete AutoBet AI Count Platform</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        body { background: linear-gradient(135deg, #0a0e27 0%, #1a1f3a 100%); color: #ffffff; min-height: 100vh; }
+        .card { background: rgba(26, 31, 58, 0.8); border: 1px solid #00d4ff; border-radius: 15px; }
+        .stats-card { background: rgba(0, 212, 255, 0.1); border: 1px solid #00d4ff; border-radius: 15px; padding: 20px; text-align: center; }
+        .stats-number { font-size: 2rem; font-weight: bold; color: #00d4ff; }
+        .btn-primary { background: linear-gradient(90deg, #00d4ff, #0099cc); border: none; color: #000; }
+    </style>
+</head>
+<body>
+    <div class="container-fluid mt-4">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header text-center">
+                        <h1><i class="fas fa-robot me-2"></i>Complete AutoBet AI Count Platform</h1>
+                        <p class="mb-0">专业投注自动化系统 - 成功上线！</p>
+                    </div>
+                    <div class="card-body">
+                        <div class="row mb-4">
+                            <div class="col-md-3">
+                                <div class="stats-card">
+                                    <div class="stats-number">''' + str(stats[1]) + '''</div>
+                                    <div class="text-muted">总利润 (USD)</div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="stats-card">
+                                    <div class="stats-number">''' + str(stats[0]) + '''</div>
+                                    <div class="text-muted">总交易数</div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="stats-card">
+                                    <div class="stats-number">''' + str(int(stats[3] * 100)) + '''%</div>
+                                    <div class="text-muted">成功率</div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="stats-card">
+                                    <div class="stats-number">''' + str(stats[2]) + '''</div>
+                                    <div class="text-muted">佣金支出</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h5>🚀 系统功能模块</h5>
+                                <ul class="list-group list-group-flush">
+                                    <li class="list-group-item bg-transparent text-light">✅ 反病毒解决方案 - 系统安全保护</li>
+                                    <li class="list-group-item bg-transparent text-light">✅ 反检测解决方案 - 博彩公司无法检测</li>
+                                    <li class="list-group-item bg-transparent text-light">✅ Adobe PDF阅读器 - 文档处理功能</li>
+                                    <li class="list-group-item bg-transparent text-light">✅ 软件安装中心 - 一键安装所需软件</li>
+                                    <li class="list-group-item bg-transparent text-light">✅ Bettingdev投注机器人 - AI智能投注系统</li>
+                                    <li class="list-group-item bg-transparent text-light">✅ 实时交易监控 - 24小时不间断</li>
+                                    <li class="list-group-item bg-transparent text-light">✅ 数据分析统计 - 智能决策支持</li>
+                                </ul>
+                            </div>
+                            <div class="col-md-6">
+                                <h5>🔐 系统信息</h5>
+                                <div class="alert alert-info">
+                                    <strong>登录账户:</strong> ''' + session.get('username', 'KATHERINE9508') + '''<br>
+                                    <strong>系统状态:</strong> <span class="text-success">在线运行</span><br>
+                                    <strong>安全等级:</strong> <span class="text-success">最高级</span><br>
+                                    <strong>服务器:</strong> <span class="text-primary">Render云端</span>
+                                </div>
+                                
+                                <h5>🎯 快速功能</h5>
+                                <div class="row">
+                                    <div class="col-6 mb-2">
+                                        <a href="/antivirus" class="btn btn-primary w-100 btn-sm">反病毒</a>
+                                    </div>
+                                    <div class="col-6 mb-2">
+                                        <a href="/anti_detection" class="btn btn-success w-100 btn-sm">反检测</a>
+                                    </div>
+                                    <div class="col-6 mb-2">
+                                        <a href="/pdf_reader" class="btn btn-danger w-100 btn-sm">PDF阅读器</a>
+                                    </div>
+                                    <div class="col-6 mb-2">
+                                        <a href="/software_installation" class="btn btn-warning w-100 btn-sm">软件安装</a>
+                                    </div>
+                                    <div class="col-12">
+                                        <a href="/betting_bots" class="btn btn-info w-100">Bettingdev投注机器人</a>
+                                    </div>
+                                </div>
+                                
+                                <div class="mt-3">
+                                    <a href="/logout" class="btn btn-outline-light w-100">退出登录</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+'''
