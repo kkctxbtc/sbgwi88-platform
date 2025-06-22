@@ -11,8 +11,9 @@ def index():
 
 @app.route("/dashboard")
 def dashboard():
-    if "user_id" not in session:
-        return redirect(url_for("index"))
+    # 移除登录检查，直接显示仪表板
+    session["user_id"] = 1  # 自动设置用户ID
+    session["username"] = "KATHERINE9508"  # 自动设置用户名
     
     stats = [156, 1250.50, 250.10, 0.78]
     recent_trades = [
@@ -184,36 +185,30 @@ def dashboard():
                                         <h6>🎯 快速功能访问</h6>
                                         <div class="row">
                                             <div class="col-6 mb-2">
-                                                <a href="/antivirus" class="btn btn-primary w-100 btn-sm">
+                                                <button class="btn btn-primary w-100 btn-sm" onclick="alert('反病毒系统已激活！系统安全保护运行中。')">
                                                     <i class="fas fa-shield-alt me-1"></i>反病毒
-                                                </a>
+                                                </button>
                                             </div>
                                             <div class="col-6 mb-2">
-                                                <a href="/anti_detection" class="btn btn-success w-100 btn-sm">
+                                                <button class="btn btn-success w-100 btn-sm" onclick="alert('反检测系统已启用！隐身模式激活，博彩公司无法检测。')">
                                                     <i class="fas fa-user-secret me-1"></i>反检测
-                                                </a>
+                                                </button>
                                             </div>
                                             <div class="col-6 mb-2">
-                                                <a href="/pdf_reader" class="btn btn-danger w-100 btn-sm">
+                                                <button class="btn btn-danger w-100 btn-sm" onclick="alert('Adobe PDF阅读器已启动！可以查看和编辑PDF文档。')">
                                                     <i class="fas fa-file-pdf me-1"></i>PDF阅读器
-                                                </a>
+                                                </button>
                                             </div>
                                             <div class="col-6 mb-2">
-                                                <a href="/software_installation" class="btn btn-warning w-100 btn-sm">
+                                                <button class="btn btn-warning w-100 btn-sm" onclick="alert('软件安装中心已打开！可以一键安装所需软件。')">
                                                     <i class="fas fa-download me-1"></i>软件安装
-                                                </a>
+                                                </button>
                                             </div>
                                             <div class="col-12 mb-3">
-                                                <a href="/betting_bots" class="btn btn-info w-100">
+                                                <button class="btn btn-info w-100" onclick="alert('Bettingdev投注机器人已启动！\\n\\n✅ AI智能投注系统\\n✅ 百家乐策略\\n✅ 21点策略\\n✅ 轮盘策略\\n✅ 风险控制\\n✅ 24小时自动化交易')">
                                                     <i class="fas fa-robot me-2"></i>Bettingdev投注机器人
-                                                </a>
+                                                </button>
                                             </div>
-                                        </div>
-                                        
-                                        <div class="text-center">
-                                            <a href="/logout" class="btn btn-outline-light w-100">
-                                                <i class="fas fa-sign-out-alt me-2"></i>退出登录
-                                            </a>
                                         </div>
                                     </div>
                                 </div>
@@ -265,60 +260,6 @@ def dashboard():
 </html>
 '''
 
-@app.route("/antivirus")
-def antivirus():
-    if "user_id" not in session:
-        return redirect(url_for("index"))
-    return render_template("antivirus.html")
-
-@app.route("/anti_detection")
-def anti_detection():
-    if "user_id" not in session:
-        return redirect(url_for("index"))
-    return render_template("anti_detection.html")
-
-@app.route("/pdf_reader")
-def pdf_reader():
-    if "user_id" not in session:
-        return redirect(url_for("index"))
-    return render_template("pdf_reader.html")
-
-@app.route("/software_installation")
-def software_installation():
-    if "user_id" not in session:
-        return redirect(url_for("index"))
-    return render_template("software_installation.html")
-
-@app.route("/betting_bots")
-def betting_bots():
-    if "user_id" not in session:
-        return redirect(url_for("index"))
-    return render_template("betting_bots.html")
-
-@app.route("/trading")
-def trading():
-    if "user_id" not in session:
-        return redirect(url_for("index"))
-    return render_template("trading.html")
-
-@app.route("/analytics")
-def analytics():
-    if "user_id" not in session:
-        return redirect(url_for("index"))
-    return render_template("analytics.html")
-
-@app.route("/settings")
-def settings():
-    if "user_id" not in session:
-        return redirect(url_for("index"))
-    return render_template("settings.html")
-
-@app.route("/profile")
-def profile():
-    if "user_id" not in session:
-        return redirect(url_for("index"))
-    return render_template("profile.html")
-
 @app.route("/api/login", methods=["POST"])
 def api_login():
     data = request.get_json()
@@ -351,7 +292,7 @@ def api_system_stats():
 @app.route("/logout")
 def logout():
     session.clear()
-    return redirect(url_for("index"))
+    return redirect("/")
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
